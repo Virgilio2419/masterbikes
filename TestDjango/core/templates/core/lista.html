@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>AutoChile</title>
+		<link rel="stylesheet" href="{% static 'css/style.css' %}">
+		<link rel="stylesheet" href="{% static 'css/table.css' %}">
+		<script src="{% static 'js/mensaje.js' %}"></script>
+	</head>
+
+	<body>
+		<header>
+			<h1>AutoChile</h1>
+			<h3>Encuentra tu próximo auto</h3>
+		</header>
+
+		<nav>
+			<a href="{% url 'inicio' %}">Inicio</a>
+			<a href="#about">Nosotros</a>
+			<a href="#contact">Contacto</a>
+			<a href="{% url 'lista' %}">Lista</a>
+		</nav>
+
+		<div class="container">
+			<table border="1">
+				<tr>
+					<th>MARCA</th>
+					<th>MODELO</th>
+					<th>AÑO</th>
+					<th>PRECIO</th>
+					<th>HP</th>
+					<th>COLOR</th>
+					<th>MODIFICAR</th>
+					<th>ELIMINAR</th>
+				</tr>
+				{% for vehiculo in vehiculos %}
+				<tr>
+					<td>{{ vehiculo.marca }}</td>
+					<td>{{ vehiculo.modelo }}</td>
+					<td>{{ vehiculo.anio }}</td>
+					<td>{{ vehiculo.precio }}</td>
+					<td>{{ vehiculo.hp }}</td>
+					<td>{{ vehiculo.color }}</td>
+					<td><a href="{% url 'modificar' pk=vehiculo.id %}" class= "button button2">Modificar</a></td>
+					<td><a href="{% url 'elimina' pk=vehiculo.id %}" class= "button button2">Eliminar</a></td>
+				</tr>
+				{% endfor %}
+			</table>
+				<a href="{% url 'nuevo' %}" class= "button button1">Nuevo Vehiculo</a>
+			<p>
+				{%if mensaje%}
+					{{mensaje}}
+				{%endif%}
+			</p>
+		</div>
+		<footer>
+			<p>&copy; 2024 AutoChile. Todos los derechos reservados.</p>
+		</footer>
+	</body>
+</html>

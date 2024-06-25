@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>AutoChile</title>
+		<link rel="stylesheet" href="{% static 'css/style.css' %}">
+		<script src="{% static 'js/mensaje.js' %}"></script>
+	</head>
+
+	<body>
+		<header>
+			<h1>Masterbikes</h1>
+			<h3>Tu camino hacia la aventura en dos ruedas, donde calidad y servicio se unen en cada pedaleo.</h3>
+		</header>
+
+		<nav>
+			<a href="#home">Inicio</a>
+			<a href="#about">Nosotros</a>
+			<a href="#contact">Contacto</a>
+			<a href="#contact">Login</a>
+		</nav>
+
+		<div class="container">
+			<div class="car">
+				<img src="{% static 'img/QASHQAI.jpg' %}" alt="Auto 1">
+				<h2>Nissan Qashqai</h2>
+				<p>Precio: $24.390.000</p>
+				<button onclick="comprarAuto('Nissan Qashqai')">Comprar</button>
+			</div>
+
+			<div class="car">
+				<img src="{% static 'img/SWIFT.jpg' %}" alt="Auto 2">
+				<h2>Suzuki Swift</h2>
+				<p>Precio: $9.640.000</p>
+				<button onclick="comprarAuto('Suzuki Swift')">Comprar</button>
+			</div>
+
+			<div class="car">
+				<img src="{% static 'img/RIO.jpg' %}" alt="Auto 3">
+				<h2>Kia Rio 5</h2>
+				<p>Precio: $12.690.000</p>
+				<button onclick="comprarAuto('Kia Rio 5')">Comprar</button>
+			</div>
+		</div>
+
+		<footer>
+			<p>&copy; 2024 AutoChile. Todos los derechos reservados.</p>
+		</footer>
+	</body>
+
+</html>
