@@ -1,0 +1,81 @@
+{%extends 'index/template.html'%}
+
+{%block content%}
+
+<div class="container my-5">
+    <h2 class="mb-4 text-center">Preguntas Frecuentes</h2>
+    <div class="accordion" id="faqAccordion">
+        <div class="card">
+            <div class="card-header" id="headingOne">
+                <h2 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        ¿Cuánto tiempo tarda una reparación estándar de bicicleta?
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#faqAccordion">
+                <div class="card-body">
+                    El tiempo de una reparación estándar puede variar, pero generalmente toma entre 1 a 3 días laborables, dependiendo de la disponibilidad de repuestos y la carga de trabajo.
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingTwo">
+                <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        ¿Ofrecen garantía en las reparaciones?
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#faqAccordion">
+                <div class="card-body">
+                    Sí, todas nuestras reparaciones vienen con una garantía de 3 meses. Si experimenta algún problema relacionado con la reparación dentro de este período, lo solucionaremos sin costo adicional.
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingThree">
+                <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        ¿Puedo reservar una bicicleta en línea?
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#faqAccordion">
+                <div class="card-body">
+                    Sí, puedes reservar cualquier bicicleta de nuestro catálogo en línea a través de nuestra página web. Una vez realizada la reserva, recibirás una confirmación y podrás recoger tu bicicleta en nuestra tienda.
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingFour">
+                <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                        ¿Qué métodos de pago aceptan?
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#faqAccordion">
+                <div class="card-body">
+                    Aceptamos pagos en efectivo, débito y crédito. También puedes realizar pagos en línea a través de nuestra plataforma segura de pagos.
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingFive">
+                <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                        ¿Venden accesorios para bicicletas?
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#faqAccordion">
+                <div class="card-body">
+                    Sí, contamos con una amplia gama de accesorios para bicicletas, incluyendo cascos, luces, candados, y más. Puedes visitar nuestra tienda en línea o nuestra tienda física para ver toda nuestra selección.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{%endblock%}

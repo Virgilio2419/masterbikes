@@ -1,0 +1,77 @@
+{% extends 'servicio/template.html' %}
+
+{% block content %}
+
+<h3>Servicio</h3>
+
+<div class="container">
+    <div class="row">
+        {% for servicio in servicios %}
+                <div class="table-responsive">
+                    <h5 class="card-title">Servicios</h5>
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <th scope="row">Cliente Id:</th>
+                                <th scope="row">Nombre Cliente:</th>
+                                <th scope="row">Ingreso:</th>
+                                <th scope="row">Marca:</th>
+                                <th scope="row">Modelo:</th>
+                                <th scope="row">Diagnostico:</th>
+                                <th scope="row">Estado:</th>
+                                <th scope="row">Metodo pago:</th>
+                                <th scope="row">Comentarios:</th>
+                                <th scope="row">Imagen:</th>
+                            </tr>
+                            <tr>
+                                <td>{{ servicio.cod }}</td>
+                                <td>{{ servicio.nombre_completo }}</td>
+                                <td>{{ servicio.ingreso }}</td>
+                                <td>{{ servicio.marca }}</td>
+                                <td>{{ servicio.modelo }}</td>
+                                <td>{{ servicio.diagnostico }}</td>
+                                <td>{{ servicio.get_estado_display  }}</td>
+                                <td>{{ servicio.get_metodo_pago_display  }}</td>
+                                <td>{{ servicio.comentarios }}</td>
+                                <td><img class="card-img-top imagen-bicicleta" src="{{ servicio.imagen.url }}" alt="{{ servicio.modelo }}" data-toggle="modal" data-target="#imageModal{{ servicio.id }}"></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+
+        <!-- Modal específico para cada servicio -->
+        <div class="modal fade" id="imageModal{{ servicio.id }}" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel{{ servicio.id }}" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="imageModalLabel{{ servicio.id }}">{{ servicio.modelo }}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <img src="{{ servicio.imagen.url }}" class="img-fluid" alt="{{ servicio.modelo }}">
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('.imagen-bicicleta').on('click', function() {
+            var src = $(this).attr('src');
+            var modalId = $(this).data('target'); // Obtener el ID del modal específico
+            $(modalId).on('show.bs.modal', function() {
+                $(modalId + ' .modal-body img').attr('src', src); // Actualizar la imagen en el modal específico
+            });
+            $(modalId).modal('show'); // Mostrar el modal específico
+        });
+    });
+</script>
+
+{% endblock %}
