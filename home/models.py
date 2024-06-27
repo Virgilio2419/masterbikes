@@ -50,6 +50,9 @@ class Servicio(models.Model):
     
     def __str__(self):
         return f"{self.cod} {self.marca} {self.nombre_completo} "
+    def save(self, *args, **kwargs):
+        self.valor_final = self.valor_cotizado + self.valor_repuestos
+        super().save(*args, **kwargs)
     
 class cliente(models.Model):
     rut = models.IntegerField()

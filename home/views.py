@@ -20,3 +20,4 @@ def servicio(request):
     
     return render(request,'servicio/servicio.html')
 
+
