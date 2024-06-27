@@ -73,59 +73,73 @@ def elimina(request, pk):
     return render(request, 'servicio/servicio.html', context)
 
 
-
 def agrega_servicio(request):
     if request.method == 'POST':
-        cod = request.POST.get('cod')
-        marca = request.POST.get('marca')
-        modelo = request.POST.get('modelo')
-        aro = request.POST.get('aro')
-        diagnostico = request.POST.get('diagnostico')
+        cod_cliente = request.POST.get('cod')
+        cliente_obj = get_object_or_404(cliente, id=cod_cliente)
 
-        imagen = request.FILES.get('imagen', None)
+        if cliente_obj:
+            marca = request.POST.get('marca')
+            modelo = request.POST.get('modelo')
+            aro = request.POST.get('aro')
+            diagnostico = request.POST.get('diagnostico')
+            imagen = request.FILES.get('imagen')
+            rut = request.POST.get('rut')
+            dv = request.POST.get('dv')
+            nombre_completo = request.POST.get('nombre_completo')
+            telefono = request.POST.get('telefono')
+            mail = request.POST.get('mail')
+            valor_cotizado = request.POST.get('valor_cotizado')
+            valor_repuestos = request.POST.get('valor_repuestos')
+            metodo_pago = request.POST.get('metodo_pago')
+            ingreso = request.POST.get('ingreso')
+            estado = request.POST.get('estado')
+            comentarios = request.POST.get('comentarios')
+            finalizado = request.POST.get('finalizado') if request.POST.get('finalizado') else None
 
-        rut = request.POST.get('rut')
-        dv = request.POST.get('dv')
-        nombre_completo = request.POST.get('nombre_completo')
-        telefono = request.POST.get('telefono')
-        mail = request.POST.get('mail')
-        valor_cotizado = request.POST.get('valor_cotizado')
-        valor_repuestos = request.POST.get('valor_repuestos')
-        metodo_pago = request.POST.get('metodo_pago')
-        ingreso = request.POST.get('ingreso')
-        estado = request.POST.get('estado')
-        comentarios = request.POST.get('comentarios')
-        finalizado = request.POST.get('finalizado') if request.POST.get('finalizado') else None
+            servicio = Servicio.objects.create(
+                cod=cliente_obj,
+                marca=marca,
+                modelo=modelo,
+                aro=aro,
+                diagnostico=diagnostico,
+                imagen=imagen,
+                rut=rut,
+                dv=dv,
+                nombre_completo=nombre_completo,
+                telefono=telefono,
+                mail=mail,
+                valor_cotizado=valor_cotizado,
+                valor_repuestos=valor_repuestos,
+                metodo_pago=metodo_pago,
+                ingreso=ingreso,
+                estado=estado,
+                comentarios=comentarios,
+                finalizado=finalizado
+            )
 
-        servicio = Servicio.objects.create(
-            cod=cod,
-            marca=marca,
-            modelo=modelo,
-            aro=aro,
-            diagnostico=diagnostico,
-            imagen=imagen,
-            rut=rut,
-            dv=dv,
-            nombre_completo=nombre_completo,
-            telefono=telefono,
-            mail=mail,
-            valor_cotizado=valor_cotizado,
-            valor_repuestos=valor_repuestos,
-            metodo_pago=metodo_pago,
-            ingreso=ingreso,
-            estado=estado,
-            comentarios=comentarios,
-            finalizado=finalizado
-        )
+            return redirect('servicio')
+        else:
+            # Cliente no encontrado, mostrar mensaje de error y redirigir al formulario
+            mensaje_error = 'El cliente no existe. Agrega primero al cliente antes de asignarle un servicio.'
+            metodo_pago_choices = Servicio.METODO_PAGO_CHOICES
+            estado_choices = Servicio.estados_CHOICES
 
-        return redirect('servicio')
+            context = {
+                'metodo_pago_choices': metodo_pago_choices,
+                'estado': estado_choices,
+                'mensaje_error': mensaje_error
+            }
 
+            return render(request, 'servicio/agrega_servicio.html', context)
+
+    # Si no es un POST, simplemente renderiza el formulario vacío
     metodo_pago_choices = Servicio.METODO_PAGO_CHOICES
-    estado = Servicio.estados_CHOICES
+    estado_choices = Servicio.estados_CHOICES
 
     context = {
         'metodo_pago_choices': metodo_pago_choices,
-        'estado': estado,
+        'estado': estado_choices,
     }
 
     return render(request, 'servicio/agrega_servicio.html', context)
