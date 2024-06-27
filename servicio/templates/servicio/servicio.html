@@ -6,7 +6,7 @@
 
 <div class="container">
     <div class="row">
-        {% for servicio in servicios %}
+        
                 <div class="table-responsive">
                     <h5 class="card-title">Servicios</h5>
                     <table class="table table-bordered">
@@ -23,6 +23,7 @@
                                 <th scope="row">Comentarios:</th>
                                 <th scope="row">Imagen:</th>
                             </tr>
+                            {% for servicio in servicios %}
                             <tr>
                                 <td>{{ servicio.cod }}</td>
                                 <td>{{ servicio.nombre_completo }}</td>
@@ -33,13 +34,12 @@
                                 <td>{{ servicio.get_estado_display  }}</td>
                                 <td>{{ servicio.get_metodo_pago_display  }}</td>
                                 <td>{{ servicio.comentarios }}</td>
-                                <td><img class="card-img-top imagen-bicicleta" src="{{ servicio.imagen.url }}" alt="{{ servicio.modelo }}" data-toggle="modal" data-target="#imageModal{{ servicio.id }}"></td>
+                                <td><img class="card-img-top imagen-bicicleta" src="{{ servicio.imagen.url }}" alt="{{ servicio.modelo }}" data-toggle="modal" data-target="#imageModal{{ servicio.id }}"></td>                     
                             </tr>
-
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>
-
 
         <!-- Modal específico para cada servicio -->
         <div class="modal fade" id="imageModal{{ servicio.id }}" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel{{ servicio.id }}" aria-hidden="true">
@@ -57,7 +57,7 @@
                 </div>
             </div>
         </div>
-        {% endfor %}
+        
     </div>
 </div>
 
