@@ -52,6 +52,9 @@
                 </tbody>
             </table>
         </div>
+        <div>
+        <a href={% url 'agrega_servicio'%} class="button button3">Nuevo Servicio</a>
+        </div>
 
         {% for servicio in servicios %}
         <!-- Modal específico para cada servicio -->
@@ -114,16 +117,27 @@
         max-width: 150px; /* Ancho máximo del botón */
     }
     .button1 {
-        background-color: blue;
+        background-color: #007bff; /* Azul estándar */
     }
+    
     .button1:hover {
-        background-color: green;
+        background-color: #0056b3; /* Azul más oscuro al pasar el ratón */
     }
+    
     .button2 {
-        background-color: grey;
+        background-color: #dc3545; /* Rojo estándar */
     }
+    
     .button2:hover {
-        background-color: red;
+        background-color: #c82333; /* Rojo más oscuro al pasar el ratón */
+    }
+    
+    .button3 {
+        background-color: #28a745; /* Verde estándar */
+    }
+    
+    .button3:hover {
+        background-color: #218838; /* Verde más oscuro al pasar el ratón */
     }
     .button:link, .button:visited, .button:hover, .button:active {
         color: white; /* Asegura que el texto sea blanco en todos los estados */

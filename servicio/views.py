@@ -37,7 +37,12 @@ def editar_servicio(request, pk):
         servicio.ingreso = request.POST.get('ingreso')
         servicio.estado = request.POST.get('estado')
         servicio.comentarios = request.POST.get('comentarios')
-        servicio.finalizado = request.POST.get('finalizado')
+                # Manejo del campo finalizado
+        finalizado = request.POST.get('finalizado')
+        if finalizado:
+            servicio.finalizado = finalizado
+        else:
+            servicio.finalizado = None
         
         servicio.save()
 
@@ -66,3 +71,62 @@ def elimina(request, pk):
     }
     
     return render(request, 'servicio/servicio.html', context)
+
+
+
+def agrega_servicio(request):
+    if request.method == 'POST':
+        cod = request.POST.get('cod')
+        marca = request.POST.get('marca')
+        modelo = request.POST.get('modelo')
+        aro = request.POST.get('aro')
+        diagnostico = request.POST.get('diagnostico')
+
+        imagen = request.FILES.get('imagen', None)
+
+        rut = request.POST.get('rut')
+        dv = request.POST.get('dv')
+        nombre_completo = request.POST.get('nombre_completo')
+        telefono = request.POST.get('telefono')
+        mail = request.POST.get('mail')
+        valor_cotizado = request.POST.get('valor_cotizado')
+        valor_repuestos = request.POST.get('valor_repuestos')
+        metodo_pago = request.POST.get('metodo_pago')
+        ingreso = request.POST.get('ingreso')
+        estado = request.POST.get('estado')
+        comentarios = request.POST.get('comentarios')
+        finalizado = request.POST.get('finalizado') if request.POST.get('finalizado') else None
+
+        servicio = Servicio.objects.create(
+            cod=cod,
+            marca=marca,
+            modelo=modelo,
+            aro=aro,
+            diagnostico=diagnostico,
+            imagen=imagen,
+            rut=rut,
+            dv=dv,
+            nombre_completo=nombre_completo,
+            telefono=telefono,
+            mail=mail,
+            valor_cotizado=valor_cotizado,
+            valor_repuestos=valor_repuestos,
+            metodo_pago=metodo_pago,
+            ingreso=ingreso,
+            estado=estado,
+            comentarios=comentarios,
+            finalizado=finalizado
+        )
+
+        return redirect('servicio')
+
+    metodo_pago_choices = Servicio.METODO_PAGO_CHOICES
+    estado = Servicio.estados_CHOICES
+
+    context = {
+        'metodo_pago_choices': metodo_pago_choices,
+        'estado': estado,
+    }
+
+    return render(request, 'servicio/agrega_servicio.html', context)
+

@@ -16,7 +16,6 @@ class  Bicicleta(models.Model):
     
 class Servicio(models.Model):
     cod = models.IntegerField()
-    marca = models.CharField(max_length=100)
     modelo = models.CharField(max_length=100)
     aro = models.IntegerField()
     marca = models.CharField(max_length=100)
@@ -45,7 +44,7 @@ class Servicio(models.Model):
     ]
     estado = models.CharField(max_length=1, choices=estados_CHOICES)
     comentarios = models.CharField(max_length=300)
-    finalizado = models.DateField(null=True)
+    finalizado = models.DateField(null=True, blank=True)
 
     
     def __str__(self):

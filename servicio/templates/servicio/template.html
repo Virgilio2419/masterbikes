@@ -113,7 +113,7 @@ body {
                     <a class="nav-link" href="#">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Logout</a>
+                    <a id="logoutLink" class="nav-link" href="#">Logout</a>
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
@@ -147,6 +147,15 @@ body {
 <!-- Font Awesome for icons -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
 
+<script>
+    document.getElementById('logoutLink').addEventListener('click', function(event) {
+        event.preventDefault(); // Previene el comportamiento predeterminado del enlace
+        
+        if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
+            window.location.href = "{% url 'home' %}"; // Redirige a la página home
+        }
+    });
+</script>
 
 <!-- Bootstrap JS and dependencies -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

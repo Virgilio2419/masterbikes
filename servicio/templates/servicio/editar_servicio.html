@@ -103,7 +103,7 @@
             
             <div class="form-group">
                 <label for="finalizado">Fecha de Finalizado:</label>
-                <input type="date" id="finalizado" name="finalizado" value="{% if servicio.finalizado %}{{ servicio.finalizado|date:'Y-m-d' }}{% endif %}">
+                <input type="date" id="finalizado" name="finalizado" {% if not servicio.finalizado %}placeholder="Dejar en blanco si no está finalizado"{% endif %} value="{% if servicio.finalizado %}{{ servicio.finalizado|date:'Y-m-d' }}{% endif %}">
             </div>
         </div>
         
