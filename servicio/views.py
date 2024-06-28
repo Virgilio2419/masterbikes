@@ -12,9 +12,53 @@ def servicio(request):
     }
     return render(request,'servicio/servicio.html',context)
 
-def agrega_cliente(request):
+def clientes(request):
+    clientes = Cliente.objects.all()
+    context={
+        'clientes': clientes
+    }
 
-    return render(request,'servicio/agrega_cliente.html')
+    return render(request,'servicio/clientes.html',context)
+
+
+def agrega_cliente(request):
+    if request.method == 'POST':
+        rut = request.POST.get('rut')
+        dv = request.POST.get('dv')
+        nombre_completo = request.POST.get('nombre_completo')
+        telefono = request.POST.get('telefono')
+        mail = request.POST.get('mail')
+        direccion = request.POST.get('direccion')
+        comuna = request.POST.get('comuna')
+        registrado = request.POST.get('registrado')
+        newsletter = request.POST.get('newsletter')
+        usuario = request.POST.get('usuario')
+        password = request.POST.get('password')
+
+        cliente = Cliente.objects.create(
+            rut=rut,
+            dv=dv,
+            nombre_completo=nombre_completo,
+            telefono=telefono,
+            mail=mail,
+            direccion=direccion,
+            comuna=comuna,
+            registrado=registrado,
+            newsletter=newsletter,
+            usuario=usuario,
+            password=password
+        )
+
+        return redirect('clientes')  # Redirige a la vista de lista de clientes
+
+    # Si no es un POST, renderiza el formulario vacío
+    comuna_choices = Cliente.COMUNA_CHOICES
+
+    context = {
+        'comuna_choices': comuna_choices,
+    }
+
+    return render(request, 'servicio/agrega_cliente.html', context)
 
 
 def editar_servicio(request, pk):
@@ -80,7 +124,7 @@ def elimina(request, pk):
 def agrega_servicio(request):
     if request.method == 'POST':
         cod_cliente = request.POST.get('cod')
-        cliente_obj = get_object_or_404(cliente, id=cod_cliente)
+        cliente_obj = get_object_or_404(Cliente, id=cod_cliente)
 
         if cliente_obj:
             marca = request.POST.get('marca')

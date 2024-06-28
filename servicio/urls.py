@@ -6,6 +6,7 @@ from .views import *
 
 urlpatterns = [
     path('servicio/',servicio,name='servicio'),
+    path('clientes/',clientes,name='clientes'),
     path('elimina/<str:pk>',elimina,name='elimina'),
     path('editar_servicio/<str:pk>/',editar_servicio,name='editar_servicio'),
     path('agrega_servicio/',agrega_servicio,name='agrega_servicio'),

@@ -14,7 +14,7 @@ class  Bicicleta(models.Model):
     def __str__(self):
         return self.marca
     
-class cliente(models.Model):
+class Cliente(models.Model):
     rut = models.IntegerField()
     dv = models.CharField(max_length=1)
     nombre_completo = models.CharField(max_length=100)
@@ -65,7 +65,7 @@ class cliente(models.Model):
         return f"RUT: {self.rut}-{self.dv} Nombre: {self.nombre_completo} "
   
 class Servicio(models.Model):
-    cod = models.ForeignKey(cliente, on_delete=models.CASCADE)
+    cod = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     modelo = models.CharField(max_length=100)
     aro = models.IntegerField()
     marca = models.CharField(max_length=100)
