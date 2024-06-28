@@ -12,6 +12,10 @@ def servicio(request):
     }
     return render(request,'servicio/servicio.html',context)
 
+def agrega_cliente(request):
+
+    return render(request,'servicio/agrega_cliente.html')
+
 
 def editar_servicio(request, pk):
     servicio = get_object_or_404(Servicio, id=pk)

@@ -9,6 +9,7 @@ urlpatterns = [
     path('elimina/<str:pk>',elimina,name='elimina'),
     path('editar_servicio/<str:pk>/',editar_servicio,name='editar_servicio'),
     path('agrega_servicio/',agrega_servicio,name='agrega_servicio'),
+    path('agrega_cliente/',agrega_cliente,name='agrega_cliente'),
 
 ]
 
