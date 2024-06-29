@@ -2,139 +2,161 @@
 
 {% block content %}
 
-<div class="col-12">
-    <div class="row">
-        <div class="table-responsive">
-            <h2 style="text-align:center;">Clientes</h2>
-            {% if mensaje %}
-            <div class="alert alert-info" role="alert">
-                {{ mensaje }}
-            </div>
-            {% endif %}
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th scope="col">Cliente Id</th>
-                        <th scope="col">RUT</th>
-                        <th scope="col">DV</th>
-                        <th scope="col">Nombre Completo</th>
-                        <th scope="col">Teléfono</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Dirección</th>
-                        <th scope="col">Comuna</th>
-                        <th scope="col">Registrado</th>
-                        <th scope="col">Newsletter</th>
-                        <th scope="col">Usuario</th>
-                        <th scope="col">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for cliente in clientes %}
-                    <tr>
-                        <td>{{ cliente.id }}</td>
-                        <td>{{ cliente.rut }}</td>
-                        <td>{{ cliente.dv }}</td>
-                        <td>{{ cliente.nombre_completo }}</td>
-                        <td>{{ cliente.telefono }}</td>
-                        <td>{{ cliente.mail }}</td>
-                        <td>{{ cliente.direccion }}</td>
-                        <td>{{ cliente.get_comuna_display }}</td>
-                        <td>{{ cliente.registrado }}</td>
-                        <td>{{ cliente.newsletter }}</td>
-                        <td>{{ cliente.usuario }}</td>
-                        <td>
-                            <a href="#" class="button button1">Editar</a>
-                            <a href="#" class="button button2" data-toggle="modal" data-target="#confirmModal{{ cliente.id }}">Eliminar</a>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        <div>
-        <a href={% url 'agrega_cliente'%} class="button button3">Nuevo Cliente</a>
-        </div>
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="text-center">Clientes</h2>
+                    {% if mensaje %}
+                    <div class="alert alert-info" role="alert">
+                        {{ mensaje }}
+                    </div>
+                    {% endif %}
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-auto">
+                            <colgroup>
+                                <col style="width: 5%;">
+                                <col style="width: 10%;">
+                                <col style="width: 5%;">
+                                <col style="width: 15%;">
+                                <col style="width: 10%;">
+                                <col style="width: 15%;">
+                                <col style="width: 15%;">
+                                <col style="width: 10%;">
+                                <col style="width: 5%;">
+                                <col style="width: 5%;">
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th scope="col">Cliente Id</th>
+                                    <th scope="col">RUT</th>
+                                    <th scope="col">DV</th>
+                                    <th scope="col">Nombre Completo</th>
+                                    <th scope="col">Teléfono</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Dirección</th>
+                                    <th scope="col">Comuna</th>
+                                    <th scope="col">Registrado</th>
+                                    <th scope="col">Newsletter</th>
+                                    <th scope="col">Usuario</th>
+                                    <th scope="col">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for cliente in clientes %}
+                                <tr>
+                                    <td>{{ cliente.id }}</td>
+                                    <td>{{ cliente.rut }}</td>
+                                    <td>{{ cliente.dv }}</td>
+                                    <td>{{ cliente.nombre_completo }}</td>
+                                    <td>{{ cliente.telefono }}</td>
+                                    <td>{{ cliente.mail }}</td>
+                                    <td>{{ cliente.direccion }}</td>
+                                    <td>{{ cliente.get_comuna_display }}</td>
+                                    <td>{{ cliente.registrado }}</td>
+                                    <td>{{ cliente.newsletter }}</td>
+                                    <td>{{ cliente.usuario }}</td>
+                                    <td style="width: 10%;">
+                                        <div class="d-flex flex-column">
+                                            <a href="#" class="btn btn-primary btn-sm mb-2">Editar</a>
+                                            <a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmModal{{ cliente.id }}">Eliminar</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="text-center mt-3">
+                        <a href="{% url 'agrega_cliente' %}" class="btn btn-success">Nuevo Cliente</a>
+                    </div>
 
-        {% for cliente in clientes %}
-        <!-- Modal de Confirmación para Eliminar -->
-        <div class="modal fade" id="confirmModal{{ cliente.id }}" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel{{ cliente.id }}" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="confirmModalLabel{{ cliente.id }}">Confirmar Eliminación</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                    {% for cliente in clientes %}
+                    <!-- Modal de Confirmación para Eliminar -->
+                    <div class="modal fade" id="confirmModal{{ cliente.id }}" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel{{ cliente.id }}" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="confirmModalLabel{{ cliente.id }}">Confirmar Eliminación</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>¿Estás seguro de eliminar el cliente "{{ cliente.nombre_completo }}"?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    <a href="#" class="btn btn-danger">Eliminar</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="modal-body">
-                        <p>¿Estás seguro de eliminar el cliente "{{ cliente.nombre_completo }}"?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <a href="#" class="btn btn-danger">Eliminar</a>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
-        {% endfor %}
-        
     </div>
 </div>
+
 
 <style>
     .button {
         display: inline-block;
-        padding: 10px 20px; /* Ajusta el padding según necesites */
-        margin-right: 10px; /* Espacio entre botones */
+        padding: 10px 20px;
+        margin-right: 10px;
         margin-bottom: 5px;
         font-size: 16px;
         cursor: pointer;
         text-align: center;
-        text-decoration: none; /* Quita el subrayado */
+        text-decoration: none;
         outline: none;
         border: none;
         border-radius: 5px;
-        color: white; /* Fija el color del texto a blanco */
-        width: 100%; /* Ajusta el ancho del botón al 100% */
-        max-width: 150px; /* Ancho máximo del botón */
+        color: white;
+        width: 100%;
+        max-width: 150px;
     }
     .button1 {
-        background-color: #007bff; /* Azul estándar */
+        background-color: #007bff;
     }
     
     .button1:hover {
-        background-color: #0056b3; /* Azul más oscuro al pasar el ratón */
+        background-color: #0056b3;
     }
     
     .button2 {
-        background-color: #dc3545; /* Rojo estándar */
+        background-color: #dc3545;
     }
     
     .button2:hover {
-        background-color: #c82333; /* Rojo más oscuro al pasar el ratón */
+        background-color: #c82333;
     }
     
     .button3 {
-        background-color: #28a745; /* Verde estándar */
+        background-color: #28a745;
     }
     
     .button3:hover {
-        background-color: #218838; /* Verde más oscuro al pasar el ratón */
+        background-color: #218838;
     }
     .button:link, .button:visited, .button:hover, .button:active {
-        color: white; /* Asegura que el texto sea blanco en todos los estados */
-        text-decoration: none; /* Quita el subrayado en todos los estados */
+        color: white;
+        text-decoration: none;
     }
 </style>
 
 <script>
     $(document).ready(function() {
-        // Modal de confirmación para eliminar
         $('.button2').on('click', function() {
             var modalId = $(this).data('target');
             $(modalId).modal('show');
         });
     });
 </script>
+
 
 {% endblock %}

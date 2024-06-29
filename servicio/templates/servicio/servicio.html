@@ -2,100 +2,120 @@
 
 {% block content %}
 
+
 <div class="container">
-    <div class="row">
-        
-        <div class="table-responsive">
-            <h2>Servicios</h2>
-            {% if mensaje %}
-            <div class="alert alert-info" role="alert">
-                {{ mensaje }}
-            </div>
-            {% endif %}
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th scope="col">Cliente Id</th>
-                        <th scope="col">Nombre Cliente</th>
-                        <th scope="col">Ingreso</th>
-                        <th scope="col">Marca</th>
-                        <th scope="col">Modelo</th>
-                        <th scope="col">Diagnóstico</th>
-                        <th scope="col">Estado</th>
-                        <th scope="col">Método pago</th>
-                        <th scope="col">Comentarios</th>
-                        <th scope="col">Imagen</th>
-                        <th scope="col">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="text-center">Servicios</h2>
+                    {% if mensaje %}
+                    <div class="alert alert-info" role="alert">
+                        {{ mensaje }}
+                    </div>
+                    {% endif %}
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-auto">
+                            <colgroup>
+                                <col style="width: 5%;">
+                                <col style="width: 15%;">
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                                <col style="width: 15%;">
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                                <col style="width: 5%;">
+                                <col style="width: 10%;">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th scope="col">Cliente Id</th>
+                                    <th scope="col">Nombre Cliente</th>
+                                    <th scope="col">Ingreso</th>
+                                    <th scope="col">Marca</th>
+                                    <th scope="col">Modelo</th>
+                                    <th scope="col">Diagnóstico</th>
+                                    <th scope="col">Estado</th>
+                                    <th scope="col">Método pago</th>
+                                    <th scope="col">Comentarios</th>
+                                    <th scope="col">Imagen</th>
+                                    <th scope="col">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for servicio in servicios %}
+                                <tr>
+                                    <td>{{ servicio.cod.id }}</td>
+                                    <td>{{ servicio.nombre_completo }}</td>
+                                    <td>{{ servicio.ingreso }}</td>
+                                    <td>{{ servicio.marca }}</td>
+                                    <td>{{ servicio.modelo }}</td>
+                                    <td>{{ servicio.diagnostico }}</td>
+                                    <td>{{ servicio.get_estado_display }}</td>
+                                    <td>{{ servicio.get_metodo_pago_display }}</td>
+                                    <td>{{ servicio.comentarios }}</td>
+                                    <td>
+                                        <img class="card-img-top imagen-bicicleta" src="{{ servicio.imagen.url }}" alt="{{ servicio.modelo }}" data-toggle="modal" data-target="#imageModal{{ servicio.id }}">
+                                    </td>
+                                    <td style="width: 10%;">
+                                        <div class="d-flex flex-column">
+                                            <a href="{% url 'editar_servicio' pk=servicio.id %}" class="btn btn-primary btn-sm mb-2">Editar</a>
+                                            <a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmModal{{ servicio.id }}">Eliminar</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="text-center mt-3">
+                        <a href="{% url 'agrega_servicio' %}" class="btn btn-success">Nuevo Servicio</a>
+                    </div>
+
                     {% for servicio in servicios %}
-                    <tr>
-                        <td>{{ servicio.cod.id }}</td>
-                        <td>{{ servicio.nombre_completo }}</td>
-                        <td>{{ servicio.ingreso }}</td>
-                        <td>{{ servicio.marca }}</td>
-                        <td>{{ servicio.modelo }}</td>
-                        <td>{{ servicio.diagnostico }}</td>
-                        <td>{{ servicio.get_estado_display }}</td>
-                        <td>{{ servicio.get_metodo_pago_display }}</td>
-                        <td>{{ servicio.comentarios }}</td>
-                        <td>
-                            <img class="card-img-top imagen-bicicleta" src="{{ servicio.imagen.url }}" alt="{{ servicio.modelo }}" data-toggle="modal" data-target="#imageModal{{ servicio.id }}">
-                        </td>
-                        <td>
-                            <a href={% url 'editar_servicio' pk=servicio.id %} class="button button1">Editar</a>
-                            <a href="#" class="button button2" data-toggle="modal" data-target="#confirmModal{{ servicio.id }}">Eliminar</a>
-                        </td>
-                    </tr>
+                    <!-- Modal específico para cada servicio -->
+                    <div class="modal fade" id="imageModal{{ servicio.id }}" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel{{ servicio.id }}" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="imageModalLabel{{ servicio.id }}">{{ servicio.modelo }}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <img src="{{ servicio.imagen.url }}" class="img-fluid" alt="{{ servicio.modelo }}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal de Confirmación para Eliminar -->
+                    <div class="modal fade" id="confirmModal{{ servicio.id }}" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel{{ servicio.id }}" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="confirmModalLabel{{ servicio.id }}">Confirmar Eliminación</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>¿Estás seguro de eliminar el servicio "{{ servicio.modelo }}"?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    <a href="{% url 'elimina' pk=servicio.id %}" class="btn btn-danger">Eliminar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        <div>
-        <a href={% url 'agrega_servicio'%} class="button button3">Nuevo Servicio</a>
-        </div>
-
-        {% for servicio in servicios %}
-        <!-- Modal específico para cada servicio -->
-        <div class="modal fade" id="imageModal{{ servicio.id }}" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel{{ servicio.id }}" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="imageModalLabel{{ servicio.id }}">{{ servicio.modelo }}</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <img src="{{ servicio.imagen.url }}" class="img-fluid" alt="{{ servicio.modelo }}">
-                    </div>
                 </div>
             </div>
         </div>
-
-        <!-- Modal de Confirmación para Eliminar -->
-        <div class="modal fade" id="confirmModal{{ servicio.id }}" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel{{ servicio.id }}" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="confirmModalLabel{{ servicio.id }}">Confirmar Eliminación</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>¿Estás seguro de eliminar el servicio "{{ servicio.modelo }}"?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <a href="{% url 'elimina' pk=servicio.id %}" class="btn btn-danger">Eliminar</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
-        
     </div>
 </div>
 
@@ -157,5 +177,6 @@
         });
     });
 </script>
+
 
 {% endblock %}
