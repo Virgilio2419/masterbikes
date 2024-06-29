@@ -1,10 +1,14 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from home.models import *
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 
 
 
 # Create your views here.
 
+
+@login_required
 def servicio(request):
     servicios = Servicio.objects.all()
     context={
@@ -12,6 +16,7 @@ def servicio(request):
     }
     return render(request,'servicio/servicio.html',context)
 
+@login_required
 def clientes(request):
     clientes = Cliente.objects.all()
     context={
@@ -20,7 +25,7 @@ def clientes(request):
 
     return render(request,'servicio/clientes.html',context)
 
-
+@login_required
 def agrega_cliente(request):
     if request.method == 'POST':
         rut = request.POST.get('rut')
@@ -60,7 +65,7 @@ def agrega_cliente(request):
 
     return render(request, 'servicio/agrega_cliente.html', context)
 
-
+@login_required
 def editar_servicio(request, pk):
     servicio = get_object_or_404(Servicio, id=pk)
 
@@ -101,6 +106,7 @@ def editar_servicio(request, pk):
     }
     return render(request, 'servicio/editar_servicio.html', context)
 
+@login_required
 def elimina(request, pk):
     try:
         servicio = Servicio.objects.get(id=pk)
@@ -120,7 +126,7 @@ def elimina(request, pk):
     
     return render(request, 'servicio/servicio.html', context)
 
-
+@login_required
 def agrega_servicio(request):
     if request.method == 'POST':
         cod_cliente = request.POST.get('cod')
