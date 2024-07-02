@@ -155,28 +155,8 @@ body {
 
 <div class="container mt-5">
     <div class="text-center mb-5">
-        <h1>Servicios Destacados de MasterBikes</h1>
-        <p class="lead">Conoce nuestros servicios especializados en ventas, servicio técnico y accesorios</p>
-    </div>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="service-card">
-                <h3>Ventas</h3>
-                <p>Descubre nuestra amplia variedad de bicicletas para todas las edades y necesidades. Contamos con las mejores marcas y modelos del mercado para garantizar tu satisfacción.</p>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="service-card">
-                <h3>Servicio Técnico</h3>
-                <p>Ofrecemos un servicio técnico de primera calidad para mantener tu bicicleta en perfectas condiciones. Nuestros expertos están preparados para resolver cualquier problema que puedas tener.</p>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="service-card">
-                <h3>Accesorios</h3>
-                <p>Encuentra una gran variedad de accesorios para mejorar tu experiencia en bicicleta. Desde cascos y luces hasta sistemas de seguridad, tenemos todo lo que necesitas.</p>
-            </div>
-        </div>
+        <h1>Tienda MasterBikes</h1>
+        <p class="lead">Aqui podras encontras tu nueva bicicleta y accesorios, calidad y confianza</p>
     </div>
 </div>
 
@@ -199,6 +179,24 @@ body {
     </div>
 </div>
 
+<div class="container">
+    <div class="row">
+        {% for accesorio in accesorios %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img class="card-img-top imagen-accesorio" src="{{ accesorio.imagen.url }}" alt="{{ accesorio.modelo }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ accesorio.marca }}</h5>
+                    <p class="card-text">sku: {{ accesorio.id }}</p>
+                    <p class="card-text2">Detalle: {{ accesorio.tipo}}</p>
+                    <p class="card-text3">Precio: $ {{ accesorio.precio|intcomma }}</p>
+                    <p class="card-text4">Color: {{ accesorio.color }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
 
 <footer class="bg-dark text-white py-4">
     <div class="container">

@@ -14,6 +14,16 @@ class  Bicicleta(models.Model):
     def __str__(self):
         return self.marca
     
+class  Accesorio(models.Model):
+    tipo = models.CharField(max_length=100)
+    marca = models.CharField(max_length=100)
+    color = models.CharField(max_length=100,null=True)
+    precio = models.IntegerField()
+    imagen = models.ImageField(upload_to="img",null=True)
+    
+    def __str__(self):
+        return self.tipo
+    
 class Servicio(models.Model):
     cod = models.IntegerField()
     marca = models.CharField(max_length=100)
