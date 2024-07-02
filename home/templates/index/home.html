@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% load static %}
 {% load humanize %}
 <!DOCTYPE html>
@@ -179,7 +180,11 @@ body {
         </div>
     </div>
 </div>
+=======
+{%extends 'index/template.html'%}
+>>>>>>> main
 
+{%block content%}
 <div class="container">
     <div class="row">
         {% for bicicleta in bicicletas %}
@@ -189,7 +194,7 @@ body {
                 <div class="card-body">
                     <h5 class="card-title">{{ bicicleta.modelo }}</h5>
                     <p class="card-text">sku: {{ bicicleta.id }}</p>
-                    <p class="card-text2">Precio $: {{ bicicleta.precio|intcomma }}</p>
+                    <p class="card-text2">Precio $: {{ bicicleta.precio }}</p>
                     <p class="card-text3">Aro: {{ bicicleta.aro }}</p>
                     <p class="card-text4">Color: {{ bicicleta.color }}</p>
                 </div>
@@ -198,9 +203,8 @@ body {
         {% endfor %}
     </div>
 </div>
-
-
-<footer class="bg-dark text-white py-4">
+{%endblock%}
+<!--<footer class="bg-dark text-white py-4">
     <div class="container">
         <div class="row">
             <div class="col-md-6">
@@ -217,12 +221,12 @@ body {
 </footer>
 
 <!-- Font Awesome for icons -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+<!--<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
 
-
-<!-- Bootstrap JS and dependencies -->
+<!-- Bootstrap JS and dependencies --><!--
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 </html>

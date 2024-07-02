@@ -2,64 +2,167 @@
 
 {% block content %}
 
-<h3>Servicio</h3>
-
 <div class="container">
-    <div class="row">
-        {% for servicio in servicios %}
-                <div class="table-responsive">
-                    <h5 class="card-title">Servicios</h5>
-                    <table class="table table-bordered">
-                        <tbody>
-                            <tr>
-                                <th scope="row">Cliente Id:</th>
-                                <th scope="row">Nombre Cliente:</th>
-                                <th scope="row">Ingreso:</th>
-                                <th scope="row">Marca:</th>
-                                <th scope="row">Modelo:</th>
-                                <th scope="row">Diagnostico:</th>
-                                <th scope="row">Estado:</th>
-                                <th scope="row">Metodo pago:</th>
-                                <th scope="row">Comentarios:</th>
-                                <th scope="row">Imagen:</th>
-                            </tr>
-                            <tr>
-                                <td>{{ servicio.cod }}</td>
-                                <td>{{ servicio.nombre_completo }}</td>
-                                <td>{{ servicio.ingreso }}</td>
-                                <td>{{ servicio.marca }}</td>
-                                <td>{{ servicio.modelo }}</td>
-                                <td>{{ servicio.diagnostico }}</td>
-                                <td>{{ servicio.get_estado_display  }}</td>
-                                <td>{{ servicio.get_metodo_pago_display  }}</td>
-                                <td>{{ servicio.comentarios }}</td>
-                                <td><img class="card-img-top imagen-bicicleta" src="{{ servicio.imagen.url }}" alt="{{ servicio.modelo }}" data-toggle="modal" data-target="#imageModal{{ servicio.id }}"></td>
-                            </tr>
-
-                        </tbody>
-                    </table>
-                </div>
-
-
-        <!-- Modal específico para cada servicio -->
-        <div class="modal fade" id="imageModal{{ servicio.id }}" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel{{ servicio.id }}" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="imageModalLabel{{ servicio.id }}">{{ servicio.modelo }}</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="text-center">Servicios</h2>
+                    {% if mensaje %}
+                    <div class="alert alert-info" role="alert">
+                        {{ mensaje }}
                     </div>
-                    <div class="modal-body">
-                        <img src="{{ servicio.imagen.url }}" class="img-fluid" alt="{{ servicio.modelo }}">
+                    {% endif %}
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-auto">
+                            <colgroup>
+                                <col style="width: 5%;">
+                                <col style="width: 15%;">
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                                <col style="width: 15%;">
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                                <col style="width: 5%;">
+                                <col style="width: 10%;">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th scope="col">Cliente Id</th>
+                                    <th scope="col">Nombre Cliente</th>
+                                    <th scope="col">Ingreso</th>
+                                    <th scope="col">Marca</th>
+                                    <th scope="col">Modelo</th>
+                                    <th scope="col">Diagnóstico</th>
+                                    <th scope="col">Estado</th>
+                                    <th scope="col">Método pago</th>
+                                    <th scope="col">Comentarios</th>
+                                    <th scope="col">Imagen</th>
+                                    <th scope="col">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for servicio in servicios %}
+                                <tr>
+                                    <td>{{ servicio.cod.id }}</td>
+                                    <td>{{ servicio.nombre_completo }}</td>
+                                    <td>{{ servicio.ingreso }}</td>
+                                    <td>{{ servicio.marca }}</td>
+                                    <td>{{ servicio.modelo }}</td>
+                                    <td>{{ servicio.diagnostico }}</td>
+                                    <td>{{ servicio.get_estado_display }}</td>
+                                    <td>{{ servicio.get_metodo_pago_display }}</td>
+                                    <td>{{ servicio.comentarios }}</td>
+                                    <td>
+                                        <img class="card-img-top imagen-bicicleta" src="{{ servicio.imagen.url }}" alt="{{ servicio.modelo }}" data-toggle="modal" data-target="#imageModal{{ servicio.id }}">
+                                    </td>
+                                    <td style="width: 10%;">
+                                        <div class="d-flex flex-column">
+                                            <a href="{% url 'editar_servicio' pk=servicio.id %}" class="btn btn-primary btn-sm mb-2">Editar</a>
+                                            <a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmModal{{ servicio.id }}">Eliminar</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
                     </div>
+                    <div class="text-center mt-3">
+                        <a href="{% url 'agrega_servicio' %}" class="btn btn-success">Nuevo Servicio</a>
+                    </div>
+
+                    {% for servicio in servicios %}
+                    <!-- Modal específico para cada servicio -->
+                    <div class="modal fade" id="imageModal{{ servicio.id }}" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel{{ servicio.id }}" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="imageModalLabel{{ servicio.id }}">{{ servicio.modelo }}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <img src="{{ servicio.imagen.url }}" class="img-fluid" alt="{{ servicio.modelo }}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal de Confirmación para Eliminar -->
+                    <div class="modal fade" id="confirmModal{{ servicio.id }}" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel{{ servicio.id }}" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="confirmModalLabel{{ servicio.id }}">Confirmar Eliminación</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>¿Estás seguro de eliminar el servicio "{{ servicio.modelo }}"?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    <a href="{% url 'elimina' pk=servicio.id %}" class="btn btn-danger">Eliminar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
-        {% endfor %}
     </div>
 </div>
+
+<style>
+    .button {
+        display: inline-block;
+        padding: 10px 20px; /* Ajusta el padding según necesites */
+        margin-right: 10px; /* Espacio entre botones */
+        margin-bottom: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none; /* Quita el subrayado */
+        outline: none;
+        border: none;
+        border-radius: 5px;
+        color: white; /* Fija el color del texto a blanco */
+        width: 100%; /* Ajusta el ancho del botón al 100% */
+        max-width: 150px; /* Ancho máximo del botón */
+    }
+    .button1 {
+        background-color: #007bff; /* Azul estándar */
+    }
+    
+    .button1:hover {
+        background-color: #0056b3; /* Azul más oscuro al pasar el ratón */
+    }
+    
+    .button2 {
+        background-color: #dc3545; /* Rojo estándar */
+    }
+    
+    .button2:hover {
+        background-color: #c82333; /* Rojo más oscuro al pasar el ratón */
+    }
+    
+    .button3 {
+        background-color: #28a745; /* Verde estándar */
+    }
+    
+    .button3:hover {
+        background-color: #218838; /* Verde más oscuro al pasar el ratón */
+    }
+    .button:link, .button:visited, .button:hover, .button:active {
+        color: white; /* Asegura que el texto sea blanco en todos los estados */
+        text-decoration: none; /* Quita el subrayado en todos los estados */
+    }
+</style>
 
 <script>
     $(document).ready(function() {
@@ -73,5 +176,6 @@
         });
     });
 </script>
+
 
 {% endblock %}
