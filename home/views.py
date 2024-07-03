@@ -13,7 +13,6 @@ def exit(request):
     logout(request)
     return redirect('home')
 
-
 def home(request):
     bicicletas = Bicicleta.objects.all()
     context={
