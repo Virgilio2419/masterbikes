@@ -7,4 +7,3 @@ def arriendos(request):
     return render(request, 'arriendos/arriendos.html')
 
 
-

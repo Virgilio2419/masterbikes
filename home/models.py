@@ -16,6 +16,7 @@ class  Bicicleta(models.Model):
     def __str__(self):
         return self.marca
     
+<<<<<<< HEAD
 class  Producto(models.Model):
     tipo_choices = [
     ("1", "Bicicleta"),
@@ -25,6 +26,12 @@ class  Producto(models.Model):
     marca = models.CharField(max_length=100)
     modelo = models.CharField(max_length=100)
     aro = models.IntegerField(null=True, blank=True)
+=======
+<<<<<<< HEAD
+class  Accesorio(models.Model):
+    tipo = models.CharField(max_length=100)
+    marca = models.CharField(max_length=100)
+>>>>>>> c947925fef88a9d68fd6afb7d45e37420187ac7e
     color = models.CharField(max_length=100,null=True)
     precio = models.IntegerField()
     imagen = models.ImageField(upload_to="img",null=True)
@@ -32,6 +39,46 @@ class  Producto(models.Model):
     def __str__(self):
         return self.tipo
     
+<<<<<<< HEAD
+=======
+class Servicio(models.Model):
+    cod = models.IntegerField()
+    marca = models.CharField(max_length=100)
+    modelo = models.CharField(max_length=100)
+    aro = models.IntegerField()
+    marca = models.CharField(max_length=100)
+    diagnostico = models.CharField(max_length=300)
+    imagen = models.ImageField(upload_to="img",null=True)
+    rut = models.IntegerField()
+    dv = models.CharField(max_length=1)
+    nombre_completo = models.CharField(max_length=100)
+    telefono = models.IntegerField()
+    mail = models.EmailField()
+    valor_cotizado = models.IntegerField()
+    valor_repuestos = models.IntegerField()
+    valor_final= models.IntegerField()
+    METODO_PAGO_CHOICES = [
+        ("1", "Efectivo"),
+        ("2", "Debito"),
+        ("3", "Credito"),
+    ]
+    metodo_pago = models.CharField(max_length=1, choices=METODO_PAGO_CHOICES)
+    ingreso = models.DateField()
+    estados_CHOICES = [
+        ("1", "Ingresado"),
+        ("2", "En Proceso"),
+        ("3", "Finalizado"),
+        ("4", "Entregado"),
+    ]
+    estado = models.CharField(max_length=1, choices=estados_CHOICES)
+    comentarios = models.CharField(max_length=300)
+    finalizado = models.DateField(null=True)
+
+    
+    def __str__(self):
+        return f"{self.cod} {self.marca} {self.nombre_completo} "
+    
+
 class Cliente(models.Model):
     rut = models.IntegerField()
     dv = models.CharField(max_length=1)

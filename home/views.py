@@ -4,9 +4,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 
 
-
-
-
 # Create your views here.
 
 def exit(request):
@@ -29,3 +26,11 @@ def preguntas(request):
 
 
 
+def tienda(request):
+    bicicletas = Bicicleta.objects.all()
+    accesorios = Accesorio.objects.all()
+    context={
+        'bicicletas': bicicletas
+        ,'accesorios': accesorios
+    }
+    return render(request,'tienda/tienda.html',context)
