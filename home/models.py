@@ -16,7 +16,6 @@ class  Bicicleta(models.Model):
     def __str__(self):
         return self.marca
     
-<<<<<<< HEAD
 class  Producto(models.Model):
     tipo_choices = [
     ("1", "Bicicleta"),
@@ -26,12 +25,10 @@ class  Producto(models.Model):
     marca = models.CharField(max_length=100)
     modelo = models.CharField(max_length=100)
     aro = models.IntegerField(null=True, blank=True)
-=======
-<<<<<<< HEAD
+
 class  Accesorio(models.Model):
     tipo = models.CharField(max_length=100)
     marca = models.CharField(max_length=100)
->>>>>>> c947925fef88a9d68fd6afb7d45e37420187ac7e
     color = models.CharField(max_length=100,null=True)
     precio = models.IntegerField()
     imagen = models.ImageField(upload_to="img",null=True)
@@ -39,8 +36,7 @@ class  Accesorio(models.Model):
     def __str__(self):
         return self.tipo
     
-<<<<<<< HEAD
-=======
+
 class Servicio(models.Model):
     cod = models.IntegerField()
     marca = models.CharField(max_length=100)
