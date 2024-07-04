@@ -16,22 +16,20 @@ class  Bicicleta(models.Model):
     def __str__(self):
         return self.marca
     
-class  Producto(models.Model):
+class Producto(models.Model):
     tipo_choices = [
-    ("1", "Bicicleta"),
-    ("2", "Casco"),
-    ("3", "Guantes")]
+        ("1", "Bicicleta"),
+        ("2", "Casco"),
+        ("3", "Guantes")
+    ]
     tipo = models.CharField(max_length=2, choices=tipo_choices)
     marca = models.CharField(max_length=100)
     modelo = models.CharField(max_length=100)
     aro = models.IntegerField(null=True, blank=True)
-
-class  Accesorio(models.Model):
-    tipo = models.CharField(max_length=100)
-    marca = models.CharField(max_length=100)
-    color = models.CharField(max_length=100,null=True)
-    precio = models.IntegerField()
-    imagen = models.ImageField(upload_to="img",null=True)
+    precio = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    stock = models.IntegerField(null=True, blank=True)
+    color = models.CharField(max_length=100, null=True, blank=True)
+    imagen = models.ImageField(upload_to="img", null=True, blank=True)
     
     def __str__(self):
         return self.tipo
@@ -123,7 +121,7 @@ class Cliente(models.Model):
     password = models.CharField(max_length=100)
     
     def __str__(self):
-        return f"RUT: {self.rut}-{self.dv} Nombre: {self.nombre_completo} "
+        return f"RUT: {self.rut}-{self.dv} Nombre: {self.nombre_completo}"
   
 class Servicio(models.Model):
     cod = models.ForeignKey(Cliente, on_delete=models.CASCADE)
@@ -167,6 +165,11 @@ class Servicio(models.Model):
     ##VENTAS
     
 class Venta(models.Model):
+    tipo_choices = [
+    ("1", "Bicicleta"),
+    ("2", "Casco"),
+    ("3", "Guantes")]
+    tipo_producto = models.CharField(max_length=2, choices=tipo_choices)
     Producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     vendedor = models.ForeignKey(User, on_delete=models.CASCADE)
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)

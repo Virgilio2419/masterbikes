@@ -110,6 +110,12 @@ body {
                     <a class="nav-link" href={% url 'clientes'%}>Clientes</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href={% url 'venta'%}>Agregar Producto</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href={% url 'agregar_venta'%}>Venta</a>
+                </li>
+                <li class="nav-item">
                     {%if request.user.is_authenticated %}
                     <a class="nav-link" href={% url 'exit' %}>Salir</a> 
                     {% else %}
